@@ -779,14 +779,14 @@ internal::ParamGenerator<typename Container::value_type> ValuesIn(
 namespace internal {
 // Used in the Values() function to provide polymorphic capabilities.
 
-template <typename... Ts>
+template <typename... Ts1>
 class ValueArray {
  public:
-  ValueArray(Ts... v) : v_{std::move(v)...} {}
+  ValueArray(Ts1... v) : v_{std::move(v)...} {}
 
   template <typename T>
   operator ParamGenerator<T>() const {  // NOLINT
-    return ValuesIn(MakeVector<T>(MakeIndexSequence<sizeof...(Ts)>()));
+    return ValuesIn(MakeVector<T>(MakeIndexSequence<sizeof...(Ts1)>()));
   }
 
  private:
@@ -795,7 +795,7 @@ class ValueArray {
     return std::vector<T>{static_cast<T>(v_.template Get<I>())...};
   }
 
-  FlatTuple<Ts...> v_;
+  FlatTuple<Ts1...> v_;
 };
 
 template <typename... T>
