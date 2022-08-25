@@ -1,2 +1,1 @@
-# gtest_test
-a small gtest testing environment 
+# Google Test C++
